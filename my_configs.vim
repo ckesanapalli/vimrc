@@ -1,5 +1,4 @@
-" Fisa-vim-config, a config for both Vim and NeoVim
-" http://vim.fisadev.com
+" Fisa-vim-config, a config for both Vim and NeoVim " http://vim.fisadev.com
 " version: 12.0.0
 
 " To use fancy symbols wherever possible, change this setting from 0 to 1
@@ -87,15 +86,22 @@ Plug 'fisadev/FixedTaskList.vim'
 "else
     "Plug 'Shougo/deoplete.nvim'
 "endif
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 " Python autocompletion
-Plug 'deoplete-plugins/deoplete-jedi'
+"Plug 'deoplete-plugins/deoplete-jedi'
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 " Just to add the python go-to-definition and similar features, autocompletion
 " from this plugin is disabled
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 " Automatically close parenthesis, etc
 Plug 'Townk/vim-autoclose'
 " Surround
@@ -109,7 +115,7 @@ Plug 'sheerun/vim-polyglot'
 " Ack code search (requires ack installed in the system)
 Plug 'mileszs/ack.vim'
 " Paint css colors with the real color
-Plug 'lilydjwg/colorizer'
+"Plug 'lilydjwg/colorizer'
 " Window chooser
 Plug 't9md/vim-choosewin'
 " Automatically sort python imports
@@ -169,9 +175,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'wgwoods/vim-systemd-syntax'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
-
-
-
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'junegunn/vim-easy-align'
 
 
 " Tell vim-plug we finished declaring plugins, so it can load them
@@ -390,6 +395,7 @@ let g:context_filetype#same_filetypes._ = '_'
 " Disable autocompletion (using deoplete instead)
 let g:jedi#completions_enabled = 0
 
+let g:deoplete#enable_at_startup = 1
 " All these mappings work only for python code:
 " Go to definition
 let g:jedi#goto_command = ',d'
@@ -514,8 +520,8 @@ nnoremap P Pzz
 nnoremap G Gzz
 nnoremap x xzz
 inoremap <ESC> <ESC>zz
-nnoremap <ENTER> <ENTER>zz^Da
-inoremap <ENTER> <ENTER><ESC>zz^Da
+nnoremap <ENTER> <ENTER>zz
+inoremap <ENTER> <ENTER><ESC>zz
 nnoremap o o<ESC>zz^Da
 nnoremap O O<ESC>zz^Da
 nnoremap a a<ESC>zza
@@ -560,6 +566,18 @@ let g:mkdp_markdown_css='/home/nick/.local/lib/github-markdown-css/github-markdo
 
 
 " example
-nmap <F5> <Plug>MarkdownPreview
+nmap <F1> <Plug>MarkdownPreview
 nmap <M-s> <Plug>MarkdownPreviewStop
 nmap <C-p> <Plug>MarkdownPreviewToggle
+
+
+"Press F5 in normal mode or in insert mode to insert the current datestamp: :help i_CTRL-R 
+
+:nnoremap <F4> "=strftime("%c")<CR>P
+:inoremap <F4> <C-R>=strftime("%c")<CR>
+
+:nnoremap <F5> !python @% 
+:inoremap <F5> !python @% 
+
+" Align GitHub-flavored Markdown tables
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
