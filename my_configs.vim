@@ -177,7 +177,7 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'junegunn/vim-easy-align'
-
+Plug 'vim-scripts/fortran.vim'
 
 " Tell vim-plug we finished declaring plugins, so it can load them
 call plug#end()
@@ -521,7 +521,7 @@ nnoremap G Gzz
 nnoremap x xzz
 inoremap <ESC> <ESC>zz
 nnoremap <ENTER> <ENTER>zz
-inoremap <ENTER> <ENTER><ESC>zz
+inoremap <ENTER> <ENTER><ESC>zzi
 nnoremap o o<ESC>zz^Da
 nnoremap O O<ESC>zz^Da
 nnoremap a a<ESC>zza
